@@ -7,10 +7,10 @@
   "scripts": {
     "start": "gulp watch",
     "build": "gulp",
-    "test": "run-p prettier:check test:karma",
+    "test": "run-p format:check test:karma",
     "test:karma": "karma start --single-run",
-    "prettier:check": "prettier . --check",
-    "prettier:write": "prettier . --write"
+    "format:check": "prettier . --check",
+    "format:fix": "prettier . --write"
   },
   "dependencies": {
     "@emoji-gen/clone-into": "^0.3.1",
