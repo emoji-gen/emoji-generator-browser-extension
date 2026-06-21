@@ -56,16 +56,13 @@ const zipPlugin = (): RsbuildPlugin => {
         api.logger.start(`creating ${sourceZipRelativePath}...`);
 
         const sourceZip = new ZipFile();
-        const sourceFiles = await fg([
-          "**/*",
-          "!.git",
-          "!dist",
-          "!node_modules",
-          "!pr",
-        ], {
-          absolute: true,
-          cwd: rootPath,
-        });
+        const sourceFiles = await fg(
+          ["**/*", "!.git", "!dist", "!node_modules", "!pr"],
+          {
+            absolute: true,
+            cwd: rootPath,
+          },
+        );
 
         for (const f of sourceFiles) {
           sourceZip.addFile(f, path.relative(rootPath, f));
