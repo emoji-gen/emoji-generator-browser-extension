@@ -1,14 +1,15 @@
-import { readFile } from "node:fs/promises";
 import { createWriteStream } from "node:fs";
-import { finished } from "node:stream/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { finished } from "node:stream/promises";
 
-import hasFlag from "has-flag";
 import { defineConfig } from "@rsbuild/core";
 import type { Compiler, RspackPluginFunction } from "@rspack/core";
+
+import fg from "fast-glob";
+import hasFlag from "has-flag";
 import Mustache from "mustache";
 import { ZipFile } from "yazl";
-import fg from "fast-glob";
 
 // Treat the build as development mode when the `--watch` option is passed to Rsbuild.
 const isDev = hasFlag("watch");
