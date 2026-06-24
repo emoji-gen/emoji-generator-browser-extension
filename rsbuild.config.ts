@@ -26,8 +26,8 @@ const zipPlugin = (options): RsbuildPlugin => {
     setup(api) {
       api.onAfterBuild(async () => {
         const { rootPath } = api.context;
-        const sourceDir = path.resolve(rootPath, options.sourceDir)
-        const zipPath = path.resolve(rootPath, options.zipPath)
+        const sourceDir = path.resolve(rootPath, options.sourceDir);
+        const zipPath = path.resolve(rootPath, options.zipPath);
 
         api.logger.start(`creating ${options.zipPath}...`);
 
@@ -39,7 +39,7 @@ const zipPlugin = (options): RsbuildPlugin => {
 
         for (const f of files) {
           const rp = path.relative(sourceDir, f);
-          api.logger.log(color.gray(rp))
+          api.logger.log(color.gray(rp));
           zip.addFile(f, rp);
         }
         zip.outputStream.pipe(createWriteStream(zipPath));
@@ -91,23 +91,20 @@ export default defineConfig(async () => {
     // Base options
     root: import.meta.dirname,
     mode: isDev ? "development" : "production",
-    plugins: isDev ? [] : [
-      zipPlugin({
-        sourceDir: 'dist/pkg',
-        zipPath: 'dist/pkg.zip',
-        include: ['**'],
-      }),
-      zipPlugin({
-        sourceDir: '',
-        zipPath: 'dist/source.zip',
-        include: [
-          "src/**/*",
-          "assets/**/*",
-          "*.{md,json,ts}",
-          "LICENSE",
+    plugins: isDev
+      ? []
+      : [
+          zipPlugin({
+            sourceDir: "dist/pkg",
+            zipPath: "dist/pkg.zip",
+            include: ["**"],
+          }),
+          zipPlugin({
+            sourceDir: "",
+            zipPath: "dist/source.zip",
+            include: ["src/**/*", "assets/**/*", "*.{md,json,ts}", "LICENSE"],
+          }),
         ],
-      }),
-    ],
     splitChunks: false,
 
     // Output options
