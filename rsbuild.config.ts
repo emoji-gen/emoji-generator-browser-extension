@@ -5,6 +5,7 @@ import { finished } from "node:stream/promises";
 
 import { defineConfig } from "@rsbuild/core";
 import type { Compiler, RspackPluginFunction } from "@rspack/core";
+import { color } from "rslog";
 
 import fg from "fast-glob";
 import hasFlag from "has-flag";
@@ -18,61 +19,34 @@ const isDev = hasFlag("watch");
 // Rsbuild Plugins
 // -----------------------------------------------------------------------------
 
-const zipPlugin = (): RsbuildPlugin => {
+const zipPlugin = (options): RsbuildPlugin => {
   return {
     name: "zip-plugin",
     apply: "build",
     setup(api) {
       api.onAfterBuild(async () => {
-        const { rootPath, distPath } = api.context;
+        const { rootPath } = api.context;
+        const sourceDir = path.resolve(rootPath, options.sourceDir)
+        const zipPath = path.resolve(rootPath, options.zipPath)
 
-        // pkg
-        // --------------------------------------------------------------------
-        const pkgPath = path.resolve(distPath, "pkg");
-        const pkgZipPath = path.resolve(distPath, "pkg.zip");
-        const pkgZipRelativePath = path.relative(rootPath, pkgZipPath);
+        api.logger.start(`creating ${options.zipPath}...`);
 
-        api.logger.start(`creating ${pkgZipRelativePath}...`);
-
-        const pkgZip = new ZipFile();
-        const pkgFiles = await fg(["**/*"], {
+        const zip = new ZipFile();
+        const files = await fg(options.include, {
           absolute: true,
-          cwd: pkgPath,
+          cwd: sourceDir,
         });
 
-        for (const f of pkgFiles) {
-          pkgZip.addFile(f, path.relative(pkgPath, f));
+        for (const f of files) {
+          const rp = path.relative(sourceDir, f);
+          api.logger.log(color.gray(rp))
+          zip.addFile(f, rp);
         }
-        pkgZip.outputStream.pipe(createWriteStream(pkgZipPath));
-        pkgZip.end();
-        await finished(pkgZip.outputStream);
+        zip.outputStream.pipe(createWriteStream(zipPath));
+        zip.end();
+        await finished(zip.outputStream);
 
-        api.logger.success(`created ${pkgZipRelativePath} successfully`);
-
-        // source
-        // --------------------------------------------------------------------
-        const sourceZipPath = path.resolve(distPath, "source.zip");
-        const sourceZipRelativePath = path.relative(rootPath, sourceZipPath);
-
-        api.logger.start(`creating ${sourceZipRelativePath}...`);
-
-        const sourceZip = new ZipFile();
-        const sourceFiles = await fg(
-          ["**/*", "!.git", "!dist", "!node_modules", "!pr"],
-          {
-            absolute: true,
-            cwd: rootPath,
-          },
-        );
-
-        for (const f of sourceFiles) {
-          sourceZip.addFile(f, path.relative(rootPath, f));
-        }
-        sourceZip.outputStream.pipe(createWriteStream(sourceZipPath));
-        sourceZip.end();
-        await finished(sourceZip.outputStream);
-
-        api.logger.success(`created ${sourceZipRelativePath} successfully`);
+        api.logger.success(`created ${options.zipPath} successfully`);
       });
     },
   };
@@ -117,7 +91,23 @@ export default defineConfig(async () => {
     // Base options
     root: import.meta.dirname,
     mode: isDev ? "development" : "production",
-    plugins: isDev ? [] : [zipPlugin()],
+    plugins: isDev ? [] : [
+      zipPlugin({
+        sourceDir: 'dist/pkg',
+        zipPath: 'dist/pkg.zip',
+        include: ['**'],
+      }),
+      zipPlugin({
+        sourceDir: '',
+        zipPath: 'dist/source.zip',
+        include: [
+          "src/**/*",
+          "assets/**/*",
+          "*.{md,json,ts}",
+          "LICENSE",
+        ],
+      }),
+    ],
     splitChunks: false,
 
     // Output options
