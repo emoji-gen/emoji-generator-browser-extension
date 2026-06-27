@@ -1,4 +1,0 @@
-dist
-src/manifest*.json
-package-lock.json
-package.json

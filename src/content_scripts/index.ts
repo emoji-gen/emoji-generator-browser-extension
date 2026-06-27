@@ -1,13 +1,11 @@
-"use strict";
-
 import {
   CE_ATTACH,
-  CE_SEARCH_JOINED_TEAMS,
-  CE_SEARCH_JOINED_TEAMS_DONE,
   CE_REGISTER_EMOJI,
   CE_REGISTER_EMOJI_DONE,
+  CE_SEARCH_JOINED_TEAMS,
+  CE_SEARCH_JOINED_TEAMS_DONE,
 } from "../event.js";
-import { getAppId, listenCustomEvent, attach } from "./util.js";
+import { attach, getAppId, listenCustomEvent } from "./util.js";
 
 const APP_ID = "j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY";
 

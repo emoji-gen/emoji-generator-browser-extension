@@ -1,5 +1,3 @@
-"use strict";
-
 import { load } from "cheerio";
 import v from "voca";
 
@@ -99,7 +97,7 @@ export async function registerEmoji(
 
   // Find API token
   const initialText = await initialResponse.text();
-  const tokenRegex = /api_token[\"\']?\s*\:\s*[\"\']([\w-]+)[\"\']/;
+  const tokenRegex = /api_token["']?\s*:\s*["']([\w-]+)["']/;
   const tokenMatches = tokenRegex.exec(initialText);
   const token = tokenMatches ? tokenMatches[1] : null;
   if (!token) {

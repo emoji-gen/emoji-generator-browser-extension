@@ -1,5 +1,3 @@
-"use strict";
-
 import { cloneInto } from "@emoji-gen/clone-into";
 import { Ptero } from "@emoji-gen/ptero";
 import { CE_ATTACH } from "../event.js";
