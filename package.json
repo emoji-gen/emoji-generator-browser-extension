@@ -17,7 +17,7 @@
     "@emoji-gen/clone-into": "^0.3.2",
     "@emoji-gen/ptero": "^0.3.1",
     "cheerio": "^1.2.0",
-    "voca": "^1.4.0"
+    "voca": "^1.4.1"
   },
   "devDependencies": {
     "@rsbuild/core": "^2.0.15",
@@ -29,7 +29,7 @@
     "@types/mocha": "^9.1.1",
     "@types/node": "^26.0.0",
     "@types/sinon": "^10.0.11",
-    "@types/voca": "^1.4.2",
+    "@types/voca": "^1.4.6",
     "chai": "^4.3.6",
     "fast-glob": "^3.3.3",
     "has-flag": "^5.0.1",
