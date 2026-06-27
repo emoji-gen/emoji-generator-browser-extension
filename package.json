@@ -23,7 +23,7 @@
     "@rsbuild/core": "^2.0.15",
     "@rspack/core": "^2.0.8",
     "@types/chai": "^4.3.1",
-    "@types/chrome": "0.0.190",
+    "@types/chrome": "^0.2.0",
     "@types/karma": "^6.3.3",
     "@types/lodash": "^4.14.182",
     "@types/mocha": "^9.1.1",
