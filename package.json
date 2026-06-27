@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@emoji-gen/clone-into": "^0.3.2",
-    "@emoji-gen/ptero": "^0.3.0",
+    "@emoji-gen/ptero": "^0.3.1",
     "cheerio": "^1.2.0",
     "voca": "^1.4.0"
   },
