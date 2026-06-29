@@ -4,7 +4,7 @@ import {
   CE_SEARCH_JOINED_TEAMS,
 } from "../event.js";
 import { addListener } from "./browser_action.js";
-import { registerEmoji, searchJoinedTeams } from "./slack.js";
+import { searchJoinedTeams, registerEmoji } from "./slack.js";
 
 function attached(
   request: any,
