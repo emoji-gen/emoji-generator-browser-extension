@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "build": "rsbuild build",
-    "format:check": "prettier . --check",
+    "format": "prettier . --check",
     "format:fix": "prettier . --write",
     "start": "rsbuild build --watch",
-    "test": "run-p format:check test:*",
-    "test:karma": "karma start --single-run",
+    "test": "run-s format test:*",
+    "test:unit": "rstest",
     "test:types": "tsc --noEmit"
   },
   "dependencies": {
@@ -22,8 +22,10 @@
   "devDependencies": {
     "@rsbuild/core": "^2.0.15",
     "@rspack/core": "^2.0.8",
+    "@rstest/core": "^0.10.6",
     "@types/chai": "^4.3.1",
     "@types/chrome": "^0.2.0",
+    "@types/jest": "^30.0.0",
     "@types/karma": "^6.3.3",
     "@types/lodash": "^4.14.182",
     "@types/mocha": "^9.1.1",
@@ -32,6 +34,7 @@
     "@types/voca": "^1.4.6",
     "chai": "^4.3.6",
     "fast-glob": "^3.3.3",
+    "happy-dom": "^20.10.6",
     "has-flag": "^5.0.1",
     "karma": "^6.4.0",
     "karma-chrome-launcher": "^3.1.1",

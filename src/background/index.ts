@@ -2,9 +2,9 @@ import {
   CE_ATTACH,
   CE_REGISTER_EMOJI,
   CE_SEARCH_JOINED_TEAMS,
-} from "../event.js";
-import { addListener } from "./browser_action.js";
-import { searchJoinedTeams, registerEmoji } from "./slack.js";
+} from '../event.js';
+import { addListener } from './browser_action.js';
+import { searchJoinedTeams, registerEmoji } from './slack.js';
 
 function attached(
   request: any,
@@ -36,7 +36,7 @@ function _registerEmoji(
     request.detail.text,
     request.detail.teamdomain,
   ).then(
-    (_) => sendResponse({ contents: "ok" }),
+    (_) => sendResponse({ contents: 'ok' }),
     (err) => sendResponse({ err }),
   );
   return true;
@@ -46,7 +46,7 @@ function _registerEmoji(
 
 function main() {
   if (_DEBUG) {
-    console.log("Start background scripts");
+    console.log('Start background scripts');
   }
 
   addListener();

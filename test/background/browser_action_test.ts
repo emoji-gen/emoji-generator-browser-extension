@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-import { assert } from "chai";
-import * as sinon from "sinon";
+import { assert } from 'chai';
+import * as sinon from 'sinon';
 
-import * as browserAction from "../../src/background/browser_action";
+import * as browserAction from '../../src/background/browser_action';
 
-describe("addListener", () => {
+describe('addListener', () => {
   let addListener: sinon.SinonSpy;
   let create: sinon.SinonSpy;
   let getUILanguage: sinon.SinonSpy;
@@ -13,7 +13,7 @@ describe("addListener", () => {
   beforeEach(() => {
     addListener = sinon.spy();
     create = sinon.spy();
-    getUILanguage = sinon.stub().returns("ja");
+    getUILanguage = sinon.stub().returns('ja');
 
     const wind = window as any;
     wind.chrome = {
@@ -34,20 +34,20 @@ describe("addListener", () => {
     wind.chrome = undefined;
   });
 
-  it("should register listener function", () => {
+  it('should register listener function', () => {
     browserAction.addListener();
 
     assert.ok(addListener.called);
     assert.isFunction(addListener.args[0][0]);
   });
 
-  it("should open new tab", () => {
+  it('should open new tab', () => {
     browserAction.addListener();
     addListener.args[0][0]();
 
     assert.ok(create.called);
     assert.deepEqual(create.args[0][0], {
-      url: "https://emoji-gen.ninja",
+      url: 'https://emoji-gen.ninja',
     });
   });
 });

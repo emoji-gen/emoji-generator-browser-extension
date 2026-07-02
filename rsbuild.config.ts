@@ -1,19 +1,19 @@
-import { createWriteStream } from "node:fs";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import { finished } from "node:stream/promises";
+import { createWriteStream } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { finished } from 'node:stream/promises';
 
-import { defineConfig } from "@rsbuild/core";
-import type { Compiler, RspackPluginFunction } from "@rspack/core";
-import { color } from "rslog";
+import { defineConfig } from '@rsbuild/core';
+import type { Compiler, RspackPluginFunction } from '@rspack/core';
+import { color } from 'rslog';
 
-import fg from "fast-glob";
-import hasFlag from "has-flag";
-import Mustache from "mustache";
-import { ZipFile } from "yazl";
+import fg from 'fast-glob';
+import hasFlag from 'has-flag';
+import Mustache from 'mustache';
+import { ZipFile } from 'yazl';
 
 // Treat the build as development mode when the `--watch` option is passed to Rsbuild.
-const isDev = hasFlag("watch");
+const isDev = hasFlag('watch');
 
 // -----------------------------------------------------------------------------
 // Rsbuild Plugins
@@ -21,8 +21,8 @@ const isDev = hasFlag("watch");
 
 const zipPlugin = (options): RsbuildPlugin => {
   return {
-    name: "zip-plugin",
-    apply: "build",
+    name: 'zip-plugin',
+    apply: 'build',
     setup(api) {
       api.onAfterBuild(async () => {
         const { rootPath } = api.context;
@@ -57,24 +57,24 @@ const zipPlugin = (options): RsbuildPlugin => {
 // -----------------------------------------------------------------------------
 
 const manifestPlugin: RspackPluginFunction = (compiler: Compiler) => {
-  const packageJsonPath = path.resolve(compiler.context, "package.json");
-  compiler.hooks.thisCompilation.tap("ManifestPlugin", (compilation) => {
+  const packageJsonPath = path.resolve(compiler.context, 'package.json');
+  compiler.hooks.thisCompilation.tap('ManifestPlugin', (compilation) => {
     compilation.fileDependencies.add(packageJsonPath);
     compilation.hooks.processAssets.tapPromise(
       {
-        name: "ManifestPlugin",
+        name: 'ManifestPlugin',
         stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
       },
       async () => {
-        const { version } = JSON.parse(await readFile(packageJsonPath, "utf8"));
+        const { version } = JSON.parse(await readFile(packageJsonPath, 'utf8'));
         const template = await readFile(
-          path.resolve(compiler.context, "src/manifest.json"),
-          "utf8",
+          path.resolve(compiler.context, 'src/manifest.json'),
+          'utf8',
         );
 
         const output = Mustache.render(template, { version, isDev });
         compilation.emitAsset(
-          "pkg/manifest.json",
+          'pkg/manifest.json',
           new compiler.webpack.sources.RawSource(output),
         );
       },
@@ -90,19 +90,19 @@ export default defineConfig(async () => {
   return {
     // Base options
     root: import.meta.dirname,
-    mode: isDev ? "development" : "production",
+    mode: isDev ? 'development' : 'production',
     plugins: isDev
       ? []
       : [
           zipPlugin({
-            sourceDir: "dist/pkg",
-            zipPath: "dist/pkg.zip",
-            include: ["**"],
+            sourceDir: 'dist/pkg',
+            zipPath: 'dist/pkg.zip',
+            include: ['**'],
           }),
           zipPlugin({
-            sourceDir: "",
-            zipPath: "dist/source.zip",
-            include: ["src/**/*", "assets/**/*", "*.{md,json,ts}", "LICENSE"],
+            sourceDir: '',
+            zipPath: 'dist/source.zip',
+            include: ['src/**/*', 'assets/**/*', '*.{md,json,ts}', 'LICENSE'],
           }),
         ],
     splitChunks: false,
@@ -112,16 +112,16 @@ export default defineConfig(async () => {
       cleanDistPath: true,
       copy: [
         {
-          from: "**/*.{png,json}",
-          to: "pkg",
-          context: path.join(import.meta.dirname, "assets"),
+          from: '**/*.{png,json}',
+          to: 'pkg',
+          context: path.join(import.meta.dirname, 'assets'),
         },
       ],
       distPath: {
-        js: "pkg",
-        assets: "pkg",
+        js: 'pkg',
+        assets: 'pkg',
       },
-      filename: "[name][ext]",
+      filename: '[name][ext]',
       filenameHash: false,
     },
 
@@ -131,8 +131,8 @@ export default defineConfig(async () => {
         _DEBUG: JSON.stringify(isDev),
       },
       entry: {
-        content_scripts: "./src/content_scripts",
-        background: "./src/background",
+        content_scripts: './src/content_scripts',
+        background: './src/background',
       },
     },
 
