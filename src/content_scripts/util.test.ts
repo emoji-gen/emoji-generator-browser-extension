@@ -6,6 +6,7 @@ import {
   rs,
   test,
 } from '@rstest/core';
+
 import { attach, getAppId, listenCustomEvent } from './util.js';
 import {
   CE_ATTACH,
