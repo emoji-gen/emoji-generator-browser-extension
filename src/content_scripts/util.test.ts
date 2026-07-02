@@ -64,12 +64,9 @@ describe('listenCustomEvent', () => {
 
   test('# can listen custom event', () => {
     let callbackEvent: CustomEvent | null = null;
-    document.body.addEventListener(
-      CE_SEARCH_JOINED_TEAMS_DONE,
-      (e: Event) => {
-        callbackEvent = e as CustomEvent;
-      },
-    );
+    document.body.addEventListener(CE_SEARCH_JOINED_TEAMS_DONE, (e: Event) => {
+      callbackEvent = e as CustomEvent;
+    });
 
     listenCustomEvent(CE_SEARCH_JOINED_TEAMS, CE_SEARCH_JOINED_TEAMS_DONE);
 
