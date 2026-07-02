@@ -5,13 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "rsbuild build --watch",
     "build": "rsbuild build",
-    "test": "run-p format:check test:types test:karma",
-    "test:karma": "karma start --single-run",
-    "test:types": "tsc --noEmit",
     "format:check": "prettier . --check",
-    "format:fix": "prettier . --write"
+    "format:fix": "prettier . --write",
+    "start": "rsbuild build --watch",
+    "test": "run-p format:check test:*",
+    "test:karma": "karma start --single-run",
+    "test:types": "tsc --noEmit"
   },
   "dependencies": {
     "@emoji-gen/clone-into": "^0.3.3",
