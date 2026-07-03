@@ -12,6 +12,6 @@
     "types": ["chrome", "jest"]
   },
   "include": ["**/*.ts"],
-  "exclude": ["dist", "node_modules"],
+  "exclude": [".git", "dist", "node_modules"],
   "compileOnSave": false
 }
