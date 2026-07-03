@@ -66,8 +66,10 @@ const zipPlugin = (options: ZipPluginOptions): RsbuildPlugin => {
 
 const manifestPlugin: RspackPluginFunction = (compiler: Compiler) => {
   const packageJsonPath = path.resolve(compiler.context, 'package.json');
+  const manifestTemplatePath = path.resolve(compiler.context, 'src/manifest.json');
   compiler.hooks.thisCompilation.tap('ManifestPlugin', (compilation) => {
     compilation.fileDependencies.add(packageJsonPath);
+    compilation.fileDependencies.add(manifestTemplatePath);
     compilation.hooks.processAssets.tapPromise(
       {
         name: 'ManifestPlugin',
@@ -75,10 +77,7 @@ const manifestPlugin: RspackPluginFunction = (compiler: Compiler) => {
       },
       async () => {
         const { version } = JSON.parse(await readFile(packageJsonPath, 'utf8'));
-        const template = await readFile(
-          path.resolve(compiler.context, 'src/manifest.json'),
-          'utf8',
-        );
+        const template = await readFile(manifestTemplatePath, 'utf8');
 
         const output = Mustache.render(template, { version, isDev });
         compilation.emitAsset(
