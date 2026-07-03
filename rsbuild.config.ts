@@ -49,9 +49,10 @@ const zipPlugin = (options: ZipPluginOptions): RsbuildPlugin => {
           api.logger.log(color.gray(rp));
           zip.addFile(f, rp);
         }
-        zip.outputStream.pipe(createWriteStream(zipPath));
+        const ws = createWriteStream(zipPath);
+        zip.outputStream.pipe(ws);
         zip.end();
-        await finished(zip.outputStream);
+        await finished(ws);
 
         api.logger.success(`created ${options.zipPath} successfully`);
       });
