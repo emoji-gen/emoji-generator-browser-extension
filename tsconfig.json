@@ -3,8 +3,6 @@
     "target": "es2020",
     "module": "esnext",
     "lib": ["es2020", "dom"],
-    "outDir": "./dist",
-    "rootDir": "./src",
     "strict": true,
     "moduleResolution": "bundler",
     "sourceMap": true,
@@ -13,7 +11,7 @@
     "esModuleInterop": true,
     "types": ["chrome", "jest"]
   },
-  "include": ["./src/**/*.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["dist", "node_modules"],
   "compileOnSave": false
 }

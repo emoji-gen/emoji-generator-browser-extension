@@ -4,6 +4,7 @@ import path from 'node:path';
 import { finished } from 'node:stream/promises';
 
 import { defineConfig } from '@rsbuild/core';
+import type { RsbuildPlugin, RsbuildConfig } from '@rsbuild/core';
 import type { Compiler, RspackPluginFunction } from '@rspack/core';
 import { color } from 'rslog';
 
@@ -19,7 +20,13 @@ const isDev = hasFlag('watch');
 // Rsbuild Plugins
 // -----------------------------------------------------------------------------
 
-const zipPlugin = (options): RsbuildPlugin => {
+interface ZipPluginOptions {
+  sourceDir: string;
+  zipPath: string;
+  include: string[];
+}
+
+const zipPlugin = (options: ZipPluginOptions): RsbuildPlugin => {
   return {
     name: 'zip-plugin',
     apply: 'build',
@@ -86,7 +93,7 @@ const manifestPlugin: RspackPluginFunction = (compiler: Compiler) => {
 // Config
 // -----------------------------------------------------------------------------
 
-export default defineConfig(async () => {
+export default defineConfig(async (): Promise<RsbuildConfig> => {
   return {
     // Base options
     root: import.meta.dirname,
@@ -121,7 +128,9 @@ export default defineConfig(async () => {
         js: 'pkg',
         assets: 'pkg',
       },
-      filename: '[name][ext]',
+      filename: {
+        js: '[name][ext]',
+      },
       filenameHash: false,
     },
 
