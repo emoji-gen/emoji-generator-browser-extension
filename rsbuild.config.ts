@@ -66,7 +66,10 @@ const zipPlugin = (options: ZipPluginOptions): RsbuildPlugin => {
 
 const manifestPlugin: RspackPluginFunction = (compiler: Compiler) => {
   const packageJsonPath = path.resolve(compiler.context, 'package.json');
-  const manifestTemplatePath = path.resolve(compiler.context, 'src/manifest.json');
+  const manifestTemplatePath = path.resolve(
+    compiler.context,
+    'src/manifest.json',
+  );
   compiler.hooks.thisCompilation.tap('ManifestPlugin', (compilation) => {
     compilation.fileDependencies.add(packageJsonPath);
     compilation.fileDependencies.add(manifestTemplatePath);
