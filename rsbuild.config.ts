@@ -129,7 +129,7 @@ export default defineConfig(async (): Promise<RsbuildConfig> => {
         assets: 'pkg',
       },
       filename: {
-        js: '[name][ext]',
+        js: '[name].js',
       },
       filenameHash: false,
     },
