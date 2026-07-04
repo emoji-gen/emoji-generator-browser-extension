@@ -51,7 +51,7 @@ Features 1 and 2 require cross-site access to `https://*.slack.com/*`, which bro
 ## Conventions
 
 - Write commit messages, PR descriptions, and documentation in English
-- Run `npm run format:fix` before committing
+- Run `npm run build` and `npm test` before committing; if `npm test` fails on formatting, run `npm run format:fix`
 
 ## Related Repositories
 
