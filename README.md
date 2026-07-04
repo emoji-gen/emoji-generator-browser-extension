@@ -19,12 +19,12 @@ $ npm start     # for development
 $ npm run build # for production
 ```
 
-Next, please load `dist/extension` directory as browser extension on Chrome or Firefox.
+Next, please load `dist/pkg` directory as browser extension on Chrome or Firefox.
 
 ## Supported Browsers
 
 - [Google Chrome](https://chrome.google.com/webstore/detail/emoji-generator/ghbhakkknnmocmiilhneahbkiaegdnmf) (Manifest V3)
-- [Firefox](https://addons.mozilla.org/ja/firefox/addon/emoji-generator/) (Manifest V2)
+- [Firefox](https://addons.mozilla.org/ja/firefox/addon/emoji-generator/) (Manifest V3)
 
 ## License
 
