@@ -44,5 +44,13 @@
     {{/isDev}}
     "https://emoji-gen.ninja/*",
     "https://*.slack.com/*"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{6fab969c-340b-488b-a367-98a611dc3478}",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
 }
