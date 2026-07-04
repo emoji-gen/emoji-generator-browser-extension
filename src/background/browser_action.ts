@@ -1,13 +1,11 @@
 const WEB_URL = 'https://emoji-gen.ninja';
 
 export function addListener() {
-  (chrome.browserAction || chrome.action).onClicked.addListener(
-    (tab: chrome.tabs.Tab) => {
-      const locale = getLocale();
-      const url = locale === 'ja' ? WEB_URL : WEB_URL + '/' + locale + '/';
-      chrome.tabs.create({ url });
-    },
-  );
+  chrome.action.onClicked.addListener((tab: chrome.tabs.Tab) => {
+    const locale = getLocale();
+    const url = locale === 'ja' ? WEB_URL : WEB_URL + '/' + locale + '/';
+    chrome.tabs.create({ url });
+  });
 }
 
 // --------------------------------------------------------

@@ -16,8 +16,7 @@
   "dependencies": {
     "@emoji-gen/clone-into": "^0.3.3",
     "@emoji-gen/ptero": "^0.3.1",
-    "cheerio": "^1.2.0",
-    "voca": "^1.4.1"
+    "cheerio": "^1.2.0"
   },
   "devDependencies": {
     "@rsbuild/core": "^2.0.15",
@@ -27,7 +26,6 @@
     "@types/jest": "^30.0.0",
     "@types/mustache": "^4.2.6",
     "@types/node": "^26.0.0",
-    "@types/voca": "^1.4.6",
     "@types/yazl": "^3.3.1",
     "fast-glob": "^3.3.3",
     "happy-dom": "^20.10.6",

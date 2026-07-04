@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   CE_ATTACH,
   CE_SEARCH_JOINED_TEAMS,

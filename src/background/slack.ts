@@ -1,7 +1,4 @@
-'use strict';
-
 import { load } from 'cheerio';
-import v from 'voca';
 
 export interface ITeam {
   name: string;
