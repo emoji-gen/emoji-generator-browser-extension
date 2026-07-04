@@ -11,6 +11,13 @@
 
 - Node `$(cat .node-version)`
 
+## Tech Stack
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [Rsbuild](https://rsbuild.dev/) / [Rspack](https://rspack.dev/)
+- [Rstest](https://rstest.rs/), [happy-dom](https://github.com/capricorn86/happy-dom)
+- [Prettier](https://prettier.io/)
+
 ## Getting Started
 
 ```bash
