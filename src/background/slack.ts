@@ -1,7 +1,4 @@
-"use strict";
-
-import cheerio = require("cheerio");
-import v = require("voca");
+import { load } from 'cheerio';
 
 export interface ITeam {
   name: string;
@@ -14,17 +11,17 @@ export interface IResult {
 }
 
 export async function searchJoinedTeams(): Promise<ITeam[]> {
-  const res = await fetch("https://slack.com/signin", {
-    credentials: "include",
+  const res = await fetch('https://slack.com/signin', {
+    credentials: 'include',
   });
   if (_DEBUG) {
     console.log(res);
   }
 
   const body = await res.text();
-  const $ = cheerio.load(body);
-  const propsNode = $("#props_node");
-  const propsText = propsNode.attr("data-props");
+  const $ = load(body);
+  const propsNode = $('#props_node');
+  const propsText = propsNode.attr('data-props');
   if (!propsText) {
     return [];
   }
@@ -33,11 +30,11 @@ export async function searchJoinedTeams(): Promise<ITeam[]> {
   try {
     props = JSON.parse(propsText);
     if (_DEBUG) {
-      console.log("props", props);
+      console.log('props', props);
     }
   } catch (e) {
     if (_DEBUG) {
-      console.error("Unable to parse JSON", propsText);
+      console.error('Unable to parse JSON', propsText);
     }
     return [];
   }
@@ -76,12 +73,12 @@ export async function registerEmoji(
   teamdomain: string,
 ): Promise<void> {
   if (!url) {
-    throw "Invalid Emoji URL";
+    throw 'Invalid Emoji URL';
   }
 
   // fetch emoji image data
   const image = await fetch(url, {
-    credentials: "include",
+    credentials: 'include',
   });
   const imageData = await image.blob();
   if (_DEBUG) {
@@ -91,7 +88,7 @@ export async function registerEmoji(
   // fetch initial form data
   const initialUrl = `https://${teamdomain}.slack.com/customize/emoji`;
   const initialResponse = await fetch(initialUrl, {
-    credentials: "include",
+    credentials: 'include',
   });
   if (_DEBUG) {
     console.log(initialResponse);
@@ -103,7 +100,7 @@ export async function registerEmoji(
   const tokenMatches = tokenRegex.exec(initialText);
   const token = tokenMatches ? tokenMatches[1] : null;
   if (!token) {
-    throw "API token not found";
+    throw 'API token not found';
   }
   if (_DEBUG) {
     console.log(token);
@@ -111,17 +108,17 @@ export async function registerEmoji(
 
   // create post form data
   const fd = new FormData();
-  fd.append("mode", "data");
-  fd.append("name", text);
-  fd.append("image", imageData, "emoji.png");
-  fd.append("token", token);
+  fd.append('mode', 'data');
+  fd.append('name', text);
+  fd.append('image', imageData, 'emoji.png');
+  fd.append('token', token);
 
   // Add emoji
   const addUrl = `https://${teamdomain}.slack.com/api/emoji.add`;
   const addResponse = await fetch(addUrl, {
     body: fd,
-    credentials: "include",
-    method: "POST",
+    credentials: 'include',
+    method: 'POST',
   });
   if (_DEBUG) {
     console.log(addResponse);
@@ -133,11 +130,11 @@ export async function registerEmoji(
   try {
     result = JSON.parse(resultJson);
   } catch (e) {
-    throw "Invalid JSON syntax";
+    throw 'Invalid JSON syntax';
   }
 
   if (result.ok) {
     return;
   }
-  throw result.error || "Unknown Error";
+  throw result.error || 'Unknown Error';
 }

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run build)",
+      "Bash(npm run test:unit)",
+      "Bash(npm run test:types)",
+      "Bash(npm run format)",
+      "Bash(npm run format:fix)"
+    ]
+  }
+}
