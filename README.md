@@ -3,7 +3,7 @@
 [![test](https://github.com/emoji-gen/browser-extension/actions/workflows/test.yml/badge.svg)](https://github.com/emoji-gen/browser-extension/actions/workflows/test.yml)
 [![License](https://img.shields.io/static/v1?label=License&message=MIT&color=green)](https://opensource.org/licenses/MIT)
 
-A browser extension for Emoji Generator that lets you register custom emojis to Slack.
+A browser extension for [Emoji Generator](https://emoji-gen.ninja/) that lets you register custom emojis to Slack.
 
 <br><img src="pr/ss1.png" width="320" height="200" alt="">&nbsp;<img src="pr/ss2.png" width="320" height="200" alt="">
 
