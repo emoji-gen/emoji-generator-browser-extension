@@ -29,7 +29,7 @@ Features 1 and 2 require cross-site access to `https://*.slack.com/*`, which bro
 ## Commands
 
 | Purpose      | Command              |
-|--------------|----------------------|
+| ------------ | -------------------- |
 | Build        | `npm run build`      |
 | Watch        | `npm start`          |
 | All tests    | `npm test`           |
@@ -42,15 +42,16 @@ Features 1 and 2 require cross-site access to `https://*.slack.com/*`, which bro
 
 ## Configuration Files
 
-| File               | Purpose                                                              |
-|--------------------|----------------------------------------------------------------------|
-| `rsbuild.config.ts` | Entry points, output paths, manifest generation, zip generation     |
-| `rstest.config.ts`  | Test configuration (environment, globals)                           |
-| `tsconfig.json`     | TypeScript configuration                                            |
+| File                | Purpose                                                         |
+| ------------------- | --------------------------------------------------------------- |
+| `rsbuild.config.ts` | Entry points, output paths, manifest generation, zip generation |
+| `rstest.config.ts`  | Test configuration (environment, globals)                       |
+| `tsconfig.json`     | TypeScript configuration                                        |
 
 ## Conventions
 
 - Write commit messages, PR descriptions, and documentation in English
+- Run `npm run format:fix` before committing
 
 ## Related Repositories
 
